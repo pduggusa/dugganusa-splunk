@@ -1,0 +1,17 @@
+# Changelog
+
+All notable changes to the DugganUSA Splunk Technology Add-on are documented here.
+
+## [1.2.0] - 2026-06-27
+
+### Added
+- Documented the three live, no-auth, durable feed-validation endpoints — novelty (`/api/v1/feed-uniqueness`), timeliness (`/api/v1/kev-lead`), and accuracy (`/api/v1/spamhaus-validation`) — so SOC teams can independently verify feed quality. Each response carries a `source` field (`live` | `durable` | `baseline`).
+- Noted new feed depth: OSV malicious-package feeds (npm + PyPI) and daily GitHub Hunt detections.
+
+### Changed
+- **STIX feed is now API-key-enforced.** A free *registered* key is required; anonymous requests return `401` and unregistered keys return `429`. Removed all "works without a key" copy and corrected setup instructions to require a registered key.
+- Aligned IOC corpus figure to 1.10M+.
+
+## [1.1.0]
+
+- CIM-mapped STIX 2.1 ingest, IP/domain blocklist lookups, hourly polling.

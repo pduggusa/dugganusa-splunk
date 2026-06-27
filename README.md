@@ -1,6 +1,18 @@
 # DugganUSA Splunk Technology Add-on
 
-**Ingest 1M+ threat indicators into Splunk. CIM-mapped. Free tier available.**
+**Ingest 1.10M+ threat indicators into Splunk. CIM-mapped. Free registered-key tier.**
+
+## What's New in 1.2.0
+
+The DugganUSA feed now ships with **three live, no-auth validation endpoints** so your SOC can independently verify feed quality before (and after) you operationalize it — durable across our platform deploys, each response tagged with a `source` field (`live` | `durable` | `baseline`):
+
+- **Novelty** — [`/api/v1/feed-uniqueness`](https://analytics.dugganusa.com/api/v1/feed-uniqueness): ~75%+ of our independently-sourced IOCs are **not** in ThreatFox. Most of what we publish, ThreatFox doesn't have.
+- **Timeliness** — [`/api/v1/kev-lead`](https://analytics.dugganusa.com/api/v1/kev-lead): we flag exploited CVEs roughly **31 days ahead of CISA KEV** on average.
+- **Accuracy** — [`/api/v1/spamhaus-validation`](https://analytics.dugganusa.com/api/v1/spamhaus-validation): Spamhaus independently corroborates our first-hand contributions.
+
+Feed depth also grew: **OSV malicious-package feeds (npm + PyPI)** and **daily GitHub Hunt detections** now flow into the corpus alongside 15 external feed sources.
+
+> **Important:** the STIX feed is now **API-key-enforced**. Anonymous requests return `401`; unregistered keys return `429`. The free tier is a **free registered key** — [register here](https://analytics.dugganusa.com/stix/register).
 
 ## Install
 
@@ -20,14 +32,14 @@ Or install from Splunkbase (submission pending).
 
 ## Configuration
 
-Set your API key as an environment variable:
+A **registered API key is required** — the STIX feed rejects anonymous requests. Grab a free key at [analytics.dugganusa.com/stix/register](https://analytics.dugganusa.com/stix/register), then set it as an environment variable:
 ```
 export DUGGANUSA_API_KEY=dugusa_YOUR_KEY_HERE
 ```
 
 Or edit `default/inputs.conf` to add the key.
 
-Free tier (500 queries/day) works without a key.
+The free registered tier (500 queries/day) is sufficient for most Splunk deployments.
 
 ## CIM Mappings
 
