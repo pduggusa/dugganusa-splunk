@@ -2,6 +2,12 @@
 
 All notable changes to the DugganUSA Splunk Technology Add-on are documented here.
 
+## [1.3.0] - 2026-06-30
+
+### Added
+- **Feed-efficacy hit reporting (liveness loop)** — new custom alert action `dugganusa_report_hit` (`bin/dugganusa_report_hit.py` + `default/alert_actions.conf`). Attach it to a correlation/saved search that matches your data against the DugganUSA blocklist lookups; on fire it POSTs the matched indicators to `POST /api/v1/feed/hit` (`consumer_kind: 'splunk'`), closing the Liveness validation axis (`/api/v1/feed-efficacy`). Configurable `param.indicator_field` / `param.action` / `param.direction`.
+- **Privacy contract:** the action reads ONLY the configured indicator column and sends ONLY that value + action/direction/count/ts — never src/dest/host/user/url or any other field. Requires `DUGGANUSA_API_KEY` (hits must be attributable); non-fatal on error.
+
 ## [1.2.1] - 2026-06-30
 
 ### Added

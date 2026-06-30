@@ -2,7 +2,9 @@
 
 **Ingest 1.5M+ threat indicators into Splunk. CIM-mapped. Free registered-key tier.**
 
-## What's New in 1.2.1
+## What's New in 1.3.0
+
+**The liveness loop is now wired** — new custom alert action `dugganusa_report_hit` reports matched indicators back to the feed-efficacy axis. See [Reporting hits (liveness axis)](#reporting-hits-liveness-axis) below.
 
 The DugganUSA feed now ships with **four live, no-auth validation endpoints** so your SOC can independently verify feed quality before (and after) you operationalize it — durable across our platform deploys, each response tagged with a `source` field (`live` | `durable` | `baseline`):
 
@@ -11,7 +13,7 @@ The DugganUSA feed now ships with **four live, no-auth validation endpoints** so
 - **Accuracy** — [`/api/v1/spamhaus-validation`](https://analytics.dugganusa.com/api/v1/spamhaus-validation): Spamhaus independently corroborates our first-hand contributions.
 - **Liveness** — [`/api/v1/feed-efficacy`](https://analytics.dugganusa.com/api/v1/feed-efficacy): opt-in consumer reports of when our indicators actually fire on real traffic — proof the feed is operationally live, not just large.
 
-As a feed consumer, you can opt in to the liveness axis by reporting hits to `POST /api/v1/feed/hit` — privacy-preserving, only the matched indicator is sent, never victim data.
+As a feed consumer, you can report hits to the liveness axis with the included `dugganusa_report_hit` alert action (see below) — privacy-preserving, only the matched indicator is sent, never victim data.
 
 Feed depth also grew: **OSV malicious-package feeds (npm + PyPI)** and **daily GitHub Hunt detections** now flow into the corpus alongside 15 external feed sources.
 
@@ -43,6 +45,22 @@ export DUGGANUSA_API_KEY=dugusa_YOUR_KEY_HERE
 Or edit `default/inputs.conf` to add the key.
 
 The free registered tier (500 queries/day) is sufficient for most Splunk deployments.
+
+## Reporting hits (liveness axis)
+
+The TA ships a custom alert action, **`DugganUSA: Report feed hit`** (`dugganusa_report_hit`), that closes the **Liveness** axis: attach it to a correlation/saved search that matches your data against the DugganUSA lookups, and on fire it POSTs the matched indicators to `POST /api/v1/feed/hit` (`consumer_kind: splunk`).
+
+In `savedsearches.conf` (or the alert UI):
+```
+action.dugganusa_report_hit = 1
+action.dugganusa_report_hit.param.indicator_field = threat_match_value
+action.dugganusa_report_hit.param.action = alerted
+action.dugganusa_report_hit.param.direction = inbound
+```
+
+It uses the same `DUGGANUSA_API_KEY` as the input (hits must be attributable) and is non-fatal on error.
+
+**Privacy:** the action reads **only** the configured indicator column and sends **only** that value + `action`/`direction`/`count`/`ts` — never src/dest/host/user/url or any other field.
 
 ## CIM Mappings
 
