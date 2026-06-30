@@ -1,14 +1,17 @@
 # DugganUSA Splunk Technology Add-on
 
-**Ingest 1.10M+ threat indicators into Splunk. CIM-mapped. Free registered-key tier.**
+**Ingest 1.5M+ threat indicators into Splunk. CIM-mapped. Free registered-key tier.**
 
-## What's New in 1.2.0
+## What's New in 1.2.1
 
-The DugganUSA feed now ships with **three live, no-auth validation endpoints** so your SOC can independently verify feed quality before (and after) you operationalize it — durable across our platform deploys, each response tagged with a `source` field (`live` | `durable` | `baseline`):
+The DugganUSA feed now ships with **four live, no-auth validation endpoints** so your SOC can independently verify feed quality before (and after) you operationalize it — durable across our platform deploys, each response tagged with a `source` field (`live` | `durable` | `baseline`):
 
 - **Novelty** — [`/api/v1/feed-uniqueness`](https://analytics.dugganusa.com/api/v1/feed-uniqueness): ~75%+ of our independently-sourced IOCs are **not** in ThreatFox. Most of what we publish, ThreatFox doesn't have.
-- **Timeliness** — [`/api/v1/kev-lead`](https://analytics.dugganusa.com/api/v1/kev-lead): we flag exploited CVEs roughly **31 days ahead of CISA KEV** on average.
+- **Timeliness** — [`/api/v1/kev-lead`](https://analytics.dugganusa.com/api/v1/kev-lead): a live ledger of how far ahead of CISA KEV we flagged each exploited CVE — positive leads, same-day, and no-receipt all shown honestly, with receipts.
 - **Accuracy** — [`/api/v1/spamhaus-validation`](https://analytics.dugganusa.com/api/v1/spamhaus-validation): Spamhaus independently corroborates our first-hand contributions.
+- **Liveness** — [`/api/v1/feed-efficacy`](https://analytics.dugganusa.com/api/v1/feed-efficacy): opt-in consumer reports of when our indicators actually fire on real traffic — proof the feed is operationally live, not just large.
+
+As a feed consumer, you can opt in to the liveness axis by reporting hits to `POST /api/v1/feed/hit` — privacy-preserving, only the matched indicator is sent, never victim data.
 
 Feed depth also grew: **OSV malicious-package feeds (npm + PyPI)** and **daily GitHub Hunt detections** now flow into the corpus alongside 15 external feed sources.
 
