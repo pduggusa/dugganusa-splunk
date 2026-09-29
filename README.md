@@ -1,6 +1,6 @@
 # DugganUSA Splunk Technology Add-on
 
-**Ingest 1.5M+ threat indicators into Splunk. CIM-mapped. Free registered-key tier.**
+**Ingest 1.9M+ threat indicators into Splunk. CIM-mapped. Free registered-key tier.**
 
 ## What's New in 1.3.0
 
