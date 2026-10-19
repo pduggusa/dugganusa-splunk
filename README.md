@@ -21,7 +21,7 @@ As a feed consumer, you can report hits to the liveness axis with the included `
 
 Feed depth also grew: **OSV malicious-package feeds (npm + PyPI)** and **daily GitHub Hunt detections** now flow into the corpus alongside 15 external feed sources.
 
-> **Important:** the STIX feed is now **API-key-enforced**. Anonymous requests return `401`; unregistered keys return `429`. The free tier is a **free registered key** — [register here](https://analytics.dugganusa.com/stix/register).
+> **Important:** the STIX feed is now **API-key-enforced**. Anonymous requests and unregistered keys return `401`; a key past its daily limit returns `429`. The free tier is a **free registered key** (10 requests/day) — [register here](https://analytics.dugganusa.com/stix/register).
 
 ## Install
 
@@ -33,7 +33,7 @@ Or install from Splunkbase (submission pending).
 
 ## What It Does
 
-- Pulls the DugganUSA STIX 2.1 feed hourly
+- Pulls the DugganUSA STIX 2.1 feed every 8 hours (3 requests per run, 9/day, inside the free key's 10/day; set `interval = 3600` in `local/inputs.conf` on a paid key)
 - Writes indicators as Splunk events in the `threat_intel` index
 - Downloads IP and domain CSV blocklists as Splunk lookups
 - CIM-mapped to the Threat Intelligence data model
@@ -78,7 +78,7 @@ It uses the same `DUGGANUSA_API_KEY` as the input (hits must be attributable) an
 
 ## Lookups
 
-Auto-updated hourly:
+Auto-updated on each run (every 8 hours by default):
 - `dugganusa_ip_blocklist.csv` — IP addresses for correlation
 - `dugganusa_domain_blocklist.csv` — Domains for DNS correlation
 

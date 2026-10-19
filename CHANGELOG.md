@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.3.2] - 2026-10-19
+
+### Fixed
+- **The default schedule exhausted a free key by the fourth hour.** Each run makes 3 requests (STIX bundle + IP CSV + domain CSV) and every request counts against the key's daily limit (free: 10/day). Hourly was 72/day; the default is now every 8 hours (9/day).
+- The input now stops with a clear message when `DUGGANUSA_API_KEY` is unset, instead of making three requests that return `401`. The docstring no longer says the key is optional.
+- `app.conf`: dropped "1.9M+ indicators" (that is the size of the IOC index, not of the feed this add-on ingests).
+- README: unregistered keys get `401`, not `429`.
+
 All notable changes to the DugganUSA Splunk Technology Add-on are documented here.
 
 ## [1.3.1] - 2026-09-29

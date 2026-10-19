@@ -6,8 +6,12 @@ Pulls the STIX 2.1 feed and writes indicators as Splunk events.
 Also downloads IP and domain CSV blocklists as lookups.
 
 Environment / Configuration:
-  DUGGANUSA_API_KEY  — API key (optional, free tier works)
-  interval           — poll interval in seconds (default: 3600)
+  DUGGANUSA_API_KEY  — REQUIRED. Anonymous and unregistered keys get HTTP 401.
+                       Free registered key: https://analytics.dugganusa.com/stix/register
+  interval           — poll interval in seconds (default: 28800). Each run makes 3
+                       requests (STIX + 2 CSVs) and every request counts against the
+                       key's daily limit. The free key allows 10/day, so 28800 (3 runs,
+                       9 requests) fits; 3600 (72/day) exhausts it by the fourth hour.
 """
 
 import sys
@@ -54,6 +58,10 @@ def fetch_csv(path, output_path):
 
 def main():
     # Fetch STIX feed
+    if not API_KEY:
+        sys.stderr.write('DugganUSA: DUGGANUSA_API_KEY is not set; the feed requires a registered key (401). '
+                         'Free key: https://analytics.dugganusa.com/stix/register\n')
+        return
     stix = fetch_json('/stix-feed')
     if not stix:
         sys.stderr.write('DugganUSA: No STIX data received\n')
