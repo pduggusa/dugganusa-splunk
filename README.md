@@ -48,7 +48,7 @@ export DUGGANUSA_API_KEY=dugusa_YOUR_KEY_HERE
 
 Or edit `default/inputs.conf` to add the key.
 
-The free registered tier is 10 queries/day; see [pricing](https://analytics.dugganusa.com/stix/pricing) for paid tiers.
+The free registered tier is 10 queries/day; see [pricing](https://analytics.dugganusa.com/pricing) for paid tiers.
 
 ## Reporting hits (liveness axis)
 
@@ -124,6 +124,6 @@ Same DugganUSA Feed, surfaced wherever you live. Open source, MIT licensed, rece
 | [dugganusa-action](https://github.com/pduggusa/dugganusa-action) | GitHub Action |
 | [dredd-mcp](https://github.com/pduggusa/dredd-mcp) | Dredd: pre-flight MCP security |
 
-Backed by the [DugganUSA Feed](https://analytics.dugganusa.com/stix). Numbers are live: [/api/v1/search/stats](https://analytics.dugganusa.com/api/v1/search/stats). Pricing: [analytics.dugganusa.com/stix/pricing](https://analytics.dugganusa.com/stix/pricing). Contact: help@dugganusa.com.
+Backed by the [DugganUSA Feed](https://analytics.dugganusa.com/stix). Numbers are live: [/api/v1/search/stats](https://analytics.dugganusa.com/api/v1/search/stats). Pricing: [analytics.dugganusa.com/pricing](https://analytics.dugganusa.com/pricing). Contact: help@dugganusa.com.
 
 _Threat intelligence you can check._
