@@ -1,5 +1,7 @@
 # DugganUSA Splunk Technology Add-on
 
+**Docs:** https://docs.dugganusa.com/siem/splunk/
+
 **You do you. I do me. We share contexts.**
 
 Your Splunk keeps its data; the add-on pulls the DugganUSA Feed in, CIM-mapped, and sends nothing back.
