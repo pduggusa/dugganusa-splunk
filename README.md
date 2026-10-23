@@ -12,8 +12,8 @@ Your Splunk keeps its data; the add-on pulls the DugganUSA Feed in, CIM-mapped, 
 
 The DugganUSA feed now ships with **four live, no-auth validation endpoints** so your SOC can independently verify feed quality before (and after) you operationalize it — durable across our platform deploys, each response tagged with a `source` field (`live` | `durable` | `baseline`):
 
-- **Novelty** — [`/api/v1/feed-uniqueness`](https://analytics.dugganusa.com/api/v1/feed-uniqueness): ~75%+ of our independently-sourced IOCs are **not** in ThreatFox. Most of what we publish, ThreatFox doesn't have.
-- **Timeliness** — [`/api/v1/kev-lead`](https://analytics.dugganusa.com/api/v1/kev-lead): a live ledger of how far ahead of CISA KEV we flagged each exploited CVE — positive leads, same-day, and no-receipt all shown honestly, with receipts.
+- **Novelty** — [`/api/v1/feed-uniqueness`](https://analytics.dugganusa.com/api/v1/feed-uniqueness): how much of our independently sourced data is not already in ThreatFox, so you can see what this feed adds beside the feeds you already run.
+- **Timeliness** — [`/api/v1/kev-lead`](https://analytics.dugganusa.com/api/v1/kev-lead): a live ledger of when each exploited CVE entered our corpus next to its CISA KEV listing date, with receipts, including the ones we had no record of.
 - **Accuracy** — [`/api/v1/spamhaus-validation`](https://analytics.dugganusa.com/api/v1/spamhaus-validation): Spamhaus independently corroborates our first-hand contributions.
 - **Liveness** — [`/api/v1/feed-efficacy`](https://analytics.dugganusa.com/api/v1/feed-efficacy): opt-in consumer reports of when our indicators actually fire on real traffic — proof the feed is operationally live, not just large.
 
